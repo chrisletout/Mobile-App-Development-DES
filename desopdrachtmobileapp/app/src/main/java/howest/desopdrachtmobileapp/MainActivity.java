@@ -54,13 +54,14 @@ public class MainActivity extends ActionBarActivity
 
         switch (position){
             case 0:
-                objFragment = new MapsFragment();
+                objFragment = new MainFragment();
                 break;
             case 1:
+
                 objFragment = new MapsFragment();
                 break;
             case 2:
-                objFragment = new MapsFragment();
+                objFragment = new MainFragment();
                 break;
         }
         // update the main content by replacing fragments
