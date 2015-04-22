@@ -1,6 +1,8 @@
 package howest.desopdrachtmobileapp;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,9 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+public class MainActivity extends ActionBarActivity implements DirectionFragment.TextClicked, NavigationDrawerFragment.NavigationDrawerCallbacks {
+    public double[] school;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -31,6 +33,15 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    @Override
+    public void sendText(double[] text){
+        // Get Fragment B
+//        MapsFragment frag = (MapsFragment)
+//                getSupportFragmentManager().findFragmentById(R.id.);
+//        frag.updateText(text);
+        school = text;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,24 +62,33 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
 
         Fragment objFragment = null;
-
-        switch (position){
+        String uId = "fr-";
+        switch (position) {
             case 0:
                 objFragment = new MainFragment();
+                uId = "fr0";
                 break;
             case 1:
-
+//                    school = school;
                 objFragment = new MapsFragment();
+                uId = "fr1";
+                Bundle args = new Bundle();
+                args.putDoubleArray("schoollatlng", school);
+                objFragment.setArguments(args);
                 break;
             case 2:
-                objFragment = new MainFragment();
+                objFragment = new DirectionFragment();
+                uId = "fr2";
+//                Bundle args = new Bundle();
+//                args.putInt(DirectionFragment.ARG_POSITION, position);
+//                newFragment.setArguments(args);
                 break;
         }
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
 //                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .replace(R.id.container, objFragment)
+                .replace(R.id.container, objFragment,uId)
                 .commit();
     }
 
