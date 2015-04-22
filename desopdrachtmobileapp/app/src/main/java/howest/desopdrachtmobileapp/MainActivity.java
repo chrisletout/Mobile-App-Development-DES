@@ -79,9 +79,6 @@ public class MainActivity extends ActionBarActivity implements DirectionFragment
             case 2:
                 objFragment = new DirectionFragment();
                 uId = "fr2";
-//                Bundle args = new Bundle();
-//                args.putInt(DirectionFragment.ARG_POSITION, position);
-//                newFragment.setArguments(args);
                 break;
         }
         // update the main content by replacing fragments
